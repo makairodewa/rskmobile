@@ -2,12 +2,13 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rsk/models/resume_model.dart';
-import 'package:rsk/repository/resume_repository.dart';
+import 'package:rsk/utils/model/resume_model.dart';
+import 'package:rsk/resume_pasien/repository/resume_repository.dart';
 import 'package:signature/signature.dart';
 
 class ResumeController extends GetxController {
-  final ResumeRepository _repository = Get.put(ResumeRepository());
+  final ResumeRepository _repository;
+  ResumeController(this._repository);
   final RxList<ResumeModel> resumes = RxList<ResumeModel>();
   final RxBool isLoading = true.obs;
   RxBool isSuccess = false.obs;

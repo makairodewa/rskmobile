@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rsk/controller/resume_controller.dart';
-import 'package:rsk/models/resume_model.dart';
-import 'package:rsk/pages/signature_page.dart';
+import 'package:rsk/resume_pasien/controller/resume_controller.dart';
+import 'package:rsk/utils/model/resume_model.dart';
+import 'package:rsk/routes/app_routes.dart';
 
 class ResumePage extends GetView<ResumeController> {
   const ResumePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,11 +54,7 @@ class ResumePage extends GetView<ResumeController> {
         style: ListTileStyle.list,
         title: Text(data.norawat),
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(
-            builder: (context) {
-              return SignatureWidget(norawat: data.norawat);
-            },
-          ));
+          Get.toNamed(AppRoutes.DETAILRESUME, arguments: data.norawat);
         },
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

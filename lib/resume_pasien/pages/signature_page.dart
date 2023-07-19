@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rsk/controller/resume_controller.dart';
+import 'package:rsk/resume_pasien/controller/resume_controller.dart';
 import 'package:signature/signature.dart';
 
-class SignatureWidget extends StatelessWidget {
-  final String norawat;
-  const SignatureWidget({super.key, required this.norawat});
+class SignatureWidget extends GetView<ResumeController> {
+  const SignatureWidget({super.key});
   @override
   Widget build(BuildContext context) {
-    ResumeController c = Get.put(ResumeController());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tanda Tangan'),
+        title: const Text('Tanda Tangan Pasien'),
         leading: IconButton(
             onPressed: () {
-              c.exportIMage.value = null;
+              controller.exportIMage.value = null;
               Get.back();
             },
             icon: const Icon(Icons.arrow_back)),
@@ -50,8 +48,8 @@ class SignatureWidget extends StatelessWidget {
                     size: 30,
                   ),
                   onPressed: () async {
-                    c.exportIMage.value = null;
-                    c.signatureController.clear();
+                    controller.exportIMage.value = null;
+                    controller.signatureController.clear();
                   },
                 ),
               ],
@@ -91,13 +89,13 @@ class SignatureWidget extends StatelessWidget {
                             ? null
                             : () async {
                                 controller.isLoading.value = true;
-                                await controller.updateTTD(
-                                    norawat, controller.exportIMage.value!);
+                                await controller.updateTTD(Get.arguments,
+                                    controller.exportIMage.value!);
                               },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            c.isLoading.value
+                            controller.isLoading.value
                                 ? const Center(
                                     child: CircularProgressIndicator())
                                 : const Padding(

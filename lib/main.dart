@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rsk/pages/home_page.dart';
+import 'package:rsk/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rsk/routes/app_routes.dart';
+import 'package:rsk/routes/page_route.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
         textTheme:
             GoogleFonts.plusJakartaSansTextTheme(Theme.of(context).textTheme),
       ),
-      home: const HomePage(),
+      initialRoute: AppRoutes.INITIAL,
+      getPages: AppPages.pages,
     );
   }
 }

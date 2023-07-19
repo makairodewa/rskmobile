@@ -2,11 +2,11 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rsk/models/resume_model.dart';
-import 'package:rsk/repository/bayi_repository.dart';
+import 'package:rsk/utils/model/resume_model.dart';
+import 'package:rsk/bayi/respository/bayi_repository.dart';
 
 class BayiController extends GetxController {
-  final BayiRepository _repository = Get.put(BayiRepository());
+  final BayiRepository repository;
   final RxList<ResumeModel> resumes = RxList<ResumeModel>();
   final RxBool isLoading = true.obs;
   RxBool isSuccess = false.obs;
@@ -17,9 +17,10 @@ class BayiController extends GetxController {
     fetchBayi();
   }
 
+  BayiController(this.repository);
   Future<void> fetchBayi() async {
     try {
-      final List<ResumeModel> fetchedResumes = await _repository.getAll();
+      final List<ResumeModel> fetchedResumes = await repository.getAll();
       resumes.assignAll(fetchedResumes);
     } catch (e) {
       rethrow;
@@ -30,7 +31,7 @@ class BayiController extends GetxController {
 
   Future<void> updateGambar(String norawat, kiri, kanan) async {
     try {
-      isSuccess.value = await _repository.updateGambar(norawat, kiri, kanan);
+      isSuccess.value = await repository.updateGambar(norawat, kiri, kanan);
       fetchBayi();
       Get.back();
       Get.snackbar(

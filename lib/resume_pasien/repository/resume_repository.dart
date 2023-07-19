@@ -1,11 +1,10 @@
 import 'dart:typed_data';
-
-import 'package:get/get.dart';
-import 'package:rsk/models/resume_model.dart';
-import 'package:rsk/services/resume_service.dart';
+import 'package:rsk/utils/model/resume_model.dart';
+import 'package:rsk/resume_pasien/repository/resume_service.dart';
 
 class ResumeRepository {
-  final ResumeApi _api = Get.find();
+  final ResumeApi _api;
+  ResumeRepository(this._api);
   Future<List<ResumeModel>> getAll() async {
     final response = await _api.getAll();
     if (response.statusCode == 200) {

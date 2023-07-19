@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:rsk/controller/bayi_controller.dart';
-import 'package:rsk/controller/resume_controller.dart';
 import 'package:rsk/models/category_model.dart';
-import 'package:rsk/services/bayi_service.dart';
-import 'package:rsk/services/resume_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,10 +23,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ResumeApi());
-    Get.put(BayiApi());
-    Get.put(ResumeController());
-    Get.put(BayiController());
+    // Get.put(BayiController());
     return Scaffold(
       appBar: AppBar(
         title: const Text("RS Karitas"),
@@ -48,26 +40,6 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            // const SizedBox(height: 30),
-            // Container(
-            //   height: 70,
-            //   padding: const EdgeInsets.symmetric(horizontal: 20),
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(57),
-            //     color: const Color(0xFFF9FAFE),
-            //   ),
-            //   child: Center(
-            //     child: TextField(
-            //       decoration: InputDecoration(
-            //         icon:
-            //             Icon(Icons.search, color: Colors.black.withOpacity(.3)),
-            //         hintText: "Search....",
-            //         hintStyle: TextStyle(color: Colors.black.withOpacity(.3)),
-            //         border: InputBorder.none,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             const SizedBox(height: 30),
             Expanded(
               child: GridView.count(

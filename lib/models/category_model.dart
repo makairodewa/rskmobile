@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rsk/pages/bayi_page.dart';
-import 'package:rsk/pages/resume_page.dart';
+import 'package:rsk/routes/app_routes.dart';
 
 class CategoryModel {
   final String title;
@@ -22,7 +21,7 @@ class CategoryModel {
       path: "assets/icon/chemotherapy.png",
       boxColor: const Color(0xFFFEC38A),
       onMoreTapped: (context) {
-        Get.to(const ResumePage());
+        Get.toNamed(AppRoutes.RESUME);
       },
     ));
     categoris.add(CategoryModel(
@@ -30,7 +29,7 @@ class CategoryModel {
       path: "assets/icon/medical-team.png",
       boxColor: const Color(0xff5099B4),
       onMoreTapped: (context) {
-        Get.to(const ResumePage());
+        Get.toNamed(AppRoutes.DOKTER);
       },
     ));
     categoris.add(CategoryModel(
@@ -38,7 +37,7 @@ class CategoryModel {
       path: "assets/icon/flip.png",
       boxColor: const Color(0xffEFF4FF),
       onMoreTapped: (context) {
-        Get.to(BayiPage());
+        Get.toNamed(AppRoutes.BAYI);
       },
     ));
 

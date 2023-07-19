@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rsk/controller/bayi_controller.dart';
-import 'package:rsk/models/resume_model.dart';
+import 'package:rsk/resume_pasien/controller/resume_controller.dart';
+import 'package:rsk/utils/model/resume_model.dart';
+import 'package:rsk/routes/app_routes.dart';
 
-class BayiPage extends GetView<BayiController> {
-  const BayiPage({super.key});
+class ResumePage extends GetView<ResumeController> {
+  const ResumePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Data Bayi"),
+        title: const Text("Resume Pasien"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -52,7 +53,9 @@ class BayiPage extends GetView<BayiController> {
         isThreeLine: true,
         style: ListTileStyle.list,
         title: Text(data.norawat),
-        onTap: () {},
+        onTap: () {
+          Get.toNamed(AppRoutes.DETAILRESUME, arguments: data.norawat);
+        },
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
