@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rsk/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rsk/routes/app_routes.dart';
 import 'package:rsk/routes/page_route.dart';

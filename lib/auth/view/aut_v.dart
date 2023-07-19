@@ -66,9 +66,13 @@ class AuthPage extends GetView<AuthController> {
                               onPressed: () {
                                 controller.showPassword();
                               },
-                              icon: Icon(
-                                Icons.remove_red_eye,
-                                color: Theme.of(context).primaryColor,
+                              icon: Obx(
+                                () => Icon(
+                                  controller.isobscureText.value
+                                      ? Icons.remove_red_eye_rounded
+                                      : Icons.remove_red_eye_rounded,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                               ),
                             ),
                           ),
