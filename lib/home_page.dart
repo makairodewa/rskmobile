@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:rsk/models/category_model.dart';
+import 'package:rsk/routes/app_routes.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   List<CategoryModel> categories = [];
-
   void _getCategories() {
     categories = CategoryModel.getCategory();
   }
@@ -19,6 +19,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _getCategories();
+  }
+
+  void _logout() async {
+    final storage = GetStorage();
+    storage.remove('token');
+    storage.remove('isRememberMe');
+    Get.offNamed(AppRoutes.AUTH);
   }
 
   @override
@@ -30,10 +37,21 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         elevation: 0,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert),
-          )
+          PopupMenuButton(
+            onSelected: (value) {
+              if (value == 'logout') {
+                _logout();
+              }
+            },
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  value: 'logout',
+                  child: const Text('Logout'),
+                ),
+              ];
+            },
+          ),
         ],
       ),
       body: Padding(

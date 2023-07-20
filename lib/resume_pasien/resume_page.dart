@@ -5,7 +5,6 @@ import 'package:rsk/utils/model/resume_model.dart';
 import 'package:rsk/routes/app_routes.dart';
 
 class ResumePage extends GetView<ResumeController> {
-  const ResumePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rsk/resume_pasien/controller/resume_controller.dart';
+import 'package:rsk/ttd_dokter/controller/ttd_dokter_c.dart';
 import 'package:signature/signature.dart';
 
-class SignatureWidget extends GetView<ResumeController> {
+class SignatureWidgetDokter extends GetView<TtdDokterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Get.arguments.toString()),
+        title: Text(Get.arguments),
         leading: IconButton(
-            onPressed: () {
-              controller.exportIMage.value = null;
-              Get.back();
-            },
-            icon: const Icon(Icons.arrow_back)),
+          onPressed: () {
+            controller.exportIMage.value = null;
+            Get.back();
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
-      body: GetBuilder<ResumeController>(
+      body: GetBuilder<TtdDokterController>(
         builder: (controller) => Column(
           children: [
             Signature(
@@ -84,23 +85,29 @@ class SignatureWidget extends GetView<ResumeController> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).primaryColor,
                         ),
-                        onPressed: controller.isLoading.value
+                        onPressed: controller.isLoading
                             ? null
                             : () async {
-                                controller.isLoading.value = true;
+                                controller.isLoading = true;
                                 await controller.updateTTD(Get.arguments,
                                     controller.exportIMage.value!);
+                                controller.isLoading = false;
                               },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            controller.isLoading.value
+                            controller.isLoading
                                 ? const Center(
-                                    child: CircularProgressIndicator())
-                                : const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text('Simpan Tanda Tangan',
-                                        style: TextStyle(color: Colors.white)),
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Simpan Tanda Tangan',
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .primaryColorLight),
+                                    ),
                                   ),
                           ],
                         ),

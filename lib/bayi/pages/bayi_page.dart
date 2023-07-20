@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rsk/bayi/controller/bayi_controller.dart';
+import 'package:rsk/routes/app_routes.dart';
 import 'package:rsk/utils/model/resume_model.dart';
 
 class BayiPage extends GetView<BayiController> {
-  const BayiPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +52,9 @@ class BayiPage extends GetView<BayiController> {
         isThreeLine: true,
         style: ListTileStyle.list,
         title: Text(data.norawat),
-        onTap: () {},
+        onTap: () {
+          Get.toNamed(AppRoutes.BAYIDETAIL, arguments: data.norawat);
+        },
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:rsk/routes/app_routes.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
+  final String? token;
+  SplashPage({this.token});
   @override
   State<SplashPage> createState() => _SplashPageState();
 }
@@ -12,10 +13,13 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(seconds: 2),
-      () => Get.offNamed(AppRoutes.AUTH),
-    );
+    if (widget.token != null && widget.token!.isNotEmpty) {
+      Future.delayed(
+          const Duration(seconds: 2), () => Get.offNamed(AppRoutes.HOME));
+    } else {
+      Future.delayed(
+          const Duration(seconds: 2), () => Get.offNamed(AppRoutes.AUTH));
+    }
   }
 
   @override
@@ -23,15 +27,27 @@ class _SplashPageState extends State<SplashPage> {
     return Container(
       color: Colors.white,
       child: Center(
-        child: Container(
-          height: 200,
-          width: 200,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/icon/icon.png'),
-              fit: BoxFit.fill,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/icon/icon.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
-          ),
+            SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: CircularProgressIndicator(),
+            ),
+          ],
         ),
       ),
     );

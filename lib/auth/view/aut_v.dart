@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rsk/auth/controller/Auth_c.dart';
-import 'package:rsk/routes/app_routes.dart';
 
 class AuthPage extends GetView<AuthController> {
-  const AuthPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +16,7 @@ class AuthPage extends GetView<AuthController> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Center(
               child: Form(
+                key: controller.formKey.value,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -32,6 +31,13 @@ class AuthPage extends GetView<AuthController> {
                         color: const Color(0xFFF6F6F6),
                       ),
                       child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Username cannot be empty';
+                          }
+                          // Add more validation rules here if needed
+                          return null;
+                        },
                         controller: controller.username,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
@@ -54,6 +60,12 @@ class AuthPage extends GetView<AuthController> {
                       ),
                       child: Obx(
                         () => TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Password cannot be empty';
+                            }
+                            return null;
+                          },
                           obscureText: controller.isobscureText.value,
                           controller: controller.password,
                           decoration: InputDecoration(
@@ -64,13 +76,13 @@ class AuthPage extends GetView<AuthController> {
                             ),
                             suffixIcon: IconButton(
                               onPressed: () {
-                                controller.showPassword();
+                                controller.isobscureText.toggle();
                               },
                               icon: Obx(
                                 () => Icon(
                                   controller.isobscureText.value
                                       ? Icons.remove_red_eye_rounded
-                                      : Icons.remove_red_eye_rounded,
+                                      : Icons.remove_red_eye_outlined,
                                   color: Theme.of(context).primaryColor,
                                 ),
                               ),
@@ -79,6 +91,14 @@ class AuthPage extends GetView<AuthController> {
                         ),
                       ),
                     ),
+                    Obx(() => CheckboxListTile(
+                          value: controller.isCheck.value,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          title: Text("Remember Me"),
+                          onChanged: (value) {
+                            controller.isCheck.toggle();
+                          },
+                        )),
                     const SizedBox(height: 100),
                     SizedBox(
                       height: 51,
@@ -86,8 +106,9 @@ class AuthPage extends GetView<AuthController> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).primaryColor),
-                        onPressed: () {
-                          Get.offAllNamed(AppRoutes.HOME);
+                        onPressed: () async {
+                          await controller.prosesLogin(controller.username.text,
+                              controller.password.text);
                         },
                         child: Text("Log In",
                             style: TextStyle(
